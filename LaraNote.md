@@ -143,3 +143,35 @@ public function \_\_construct(string $topic)
 }
 
 ---
+
+### Send Email Using Markdown
+
+_1. Modify ContactMe.php_ use markdown in the build method`return $this->markdown('emails.contact-me')->subject('More information about ' . $this->topic);`
+
+_2. In your clean template add a componen directive_
+
+---
+
+@component('mail::message')
+
+# A heading
+
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat deleniti aspernatur, id odio ipsa officia!
+
+-   A list
+-   goes
+-   here
+
+@component('mail::button', ['url' => 'https://laracasts.com'])
+Visit Laracasts
+@endcomponent
+
+@endcomponent
+
+---
+
+Don't indent markdown
+
+### Create Mail with markdown
+
+_php artisan make:mail Contact --markdown=emails.contact_
