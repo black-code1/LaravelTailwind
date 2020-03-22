@@ -90,3 +90,56 @@ _1. Creat an account on https://mailtrap.io_
 _2. Create a new inbox on mailtrap_
 _3. Copy down the credentials offer by mailtrap on your .env file_
 _4. You are now ready to go_
+
+## Send HTML Emails using Mailable Classes
+
+_1. Create a mail through a command_ `php artisan make:mail ContactMe` A new folder is then generate where you will build your message
+
+_2. Create a view base on the return statement in the generated file_ `return $this->view('emails.name');`
+
+_3. Move to your ContactController_ and add the following code
+
+---
+
+request()->validate(['email' => 'required|email']);
+
+        // send the email
+
+        Mail::to(request('email'))
+        ->send(new ContactMe());
+
+        return redirect('/contact')
+        ->with('message', 'Email sent!');
+
+---
+
+### For extra information
+
+`<p>It sounds like you want to hear more about {{ $topic }}.</p>`
+
+Define `public $topic;` in the ContactMe.php
+and add the following code
+
+---
+
+public function \_\_construct($topic)
+    {
+        
+        $this->topic = \$topic;
+}
+
+---
+
+Then modify this line in the controller `send(new ContactMe('shirts'));`
+
+In the build method add `$this->view('emails.contact-me')->subject('More information about' . $this->topic);` to reference the subject
+
+---
+
+public function \_\_construct(string $topic)
+    {
+        
+        $this->topic = \$topic;
+}
+
+---
