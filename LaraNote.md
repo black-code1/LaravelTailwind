@@ -175,3 +175,11 @@ Don't indent markdown
 ### Create Mail with markdown
 
 _php artisan make:mail Contact --markdown=emails.contact_
+
+### Customising a component
+
+_php artisan help vendor:publish_ Publish any publishable assets from vendor packages
+
+`php artisan vendor:publish --tag=laravel-mail`
+
+Then you could customise you theme by creating your own style file under _theme folder_, add in your styles then reference it on the _Mail.php_ file found in the config folder then search for the `theme` entry and reference your file in.
